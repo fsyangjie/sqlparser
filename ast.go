@@ -53,7 +53,7 @@ func Parse(sql string) (Statement, error) {
 			tokenizer.ParseTree = tokenizer.partialDDL
 			return tokenizer.ParseTree, nil
 		}
-		return nil, tokenizer.LastError
+		return tokenizer.ParseTree, tokenizer.LastError
 	}
 	return tokenizer.ParseTree, nil
 }
