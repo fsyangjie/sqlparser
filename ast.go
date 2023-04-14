@@ -63,7 +63,7 @@ func Parse(sql string) (Statement, error) {
 func ParseStrictDDL(sql string) (Statement, error) {
 	tokenizer := NewStringTokenizer(sql)
 	if yyParse(tokenizer) != 0 {
-		return nil, tokenizer.LastError
+		return tokenizer.ParseTree, tokenizer.LastError
 	}
 	return tokenizer.ParseTree, nil
 }
@@ -89,7 +89,7 @@ func ParseNext(tokenizer *Tokenizer) (Statement, error) {
 			tokenizer.ParseTree = tokenizer.partialDDL
 			return tokenizer.ParseTree, nil
 		}
-		return nil, tokenizer.LastError
+		return tokenizer.ParseTree, tokenizer.LastError
 	}
 	return tokenizer.ParseTree, nil
 }
